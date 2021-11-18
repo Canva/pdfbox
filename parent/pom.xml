@@ -33,7 +33,7 @@
 
     <groupId>org.apache.pdfbox</groupId>
     <artifactId>pdfbox-parent</artifactId>
-    <version>2.0.24</version>
+    <version>2.0.24-canva</version>
     <packaging>pom</packaging>
 
     <name>PDFBox parent</name>
@@ -147,7 +147,7 @@
                     <plugin>
                         <artifactId>maven-compiler-plugin</artifactId>
                         <configuration>
-                            <release>6</release>
+                            <release>8</release>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -322,7 +322,7 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <plugin>
+                <!--<plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <executions>
                         <execution>
@@ -344,7 +344,7 @@
                             </configuration>
                         </execution>
                     </executions>
-                </plugin>
+                </plugin> -->
                 <plugin>
                     <groupId>org.apache.rat</groupId>
                     <artifactId>apache-rat-plugin</artifactId>
